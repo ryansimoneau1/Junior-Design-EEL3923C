@@ -1,0 +1,230 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[v F38 `(v ~T0 @X0 0 tf1`uc ]
+[v F41 `(v ~T0 @X0 0 tf1`ul ]
+"69 ./ANY_LCD.h
+[; ;./ANY_LCD.h: 69: typedef struct any_lcd{
+[s S1 `*F38 1 `*F41 1 ]
+[n S1 any_lcd lcd_write delay_us ]
+"42 ANY_LCD.c
+[; ;ANY_LCD.c: 42: static void LCD_MakeCMD(uint16_t *buffer,uint16_t data);
+[v _LCD_MakeCMD `(v ~T0 @X0 0 sf2`*us`us ]
+"62
+[; ;ANY_LCD.c: 62: static void LCD_SendBytes(uint16_t *buffer,any_lcd_t lcd,uint8_t len);
+[v _LCD_SendBytes `(v ~T0 @X0 0 sf3`*us`S1`uc ]
+"52
+[; ;ANY_LCD.c: 52: static void LCD_MakeData(uint16_t *buffer,uint16_t data);
+[v _LCD_MakeData `(v ~T0 @X0 0 sf2`*us`us ]
+"71 ANY_LCD.c
+[; ;ANY_LCD.c: 71: void LCD_WriteCMD(uint16_t cmd,any_lcd_t lcd){
+[v _LCD_WriteCMD `(v ~T0 @X0 1 ef2`us`S1 ]
+{
+[e :U _LCD_WriteCMD ]
+[v _cmd `us ~T0 @X0 1 r1 ]
+[v _lcd `S1 ~T0 @X0 1 r2 ]
+[f ]
+"72
+[; ;ANY_LCD.c: 72:     static uint16_t buffer[4];
+[v F70 `us ~T0 @X0 -> 4 `i s buffer ]
+"73
+[; ;ANY_LCD.c: 73:     LCD_MakeCMD(buffer,cmd);
+[e ( _LCD_MakeCMD (2 , &U F70 _cmd ]
+"74
+[; ;ANY_LCD.c: 74:     LCD_SendBytes(buffer,lcd,4);
+[e ( _LCD_SendBytes (3 , , &U F70 _lcd -> -> 4 `i `uc ]
+"75
+[; ;ANY_LCD.c: 75: }
+[e :UE 2 ]
+}
+"81
+[; ;ANY_LCD.c: 81: void LCD_WriteString(char *str,any_lcd_t lcd){
+[v _LCD_WriteString `(v ~T0 @X0 1 ef2`*uc`S1 ]
+{
+[e :U _LCD_WriteString ]
+[v _str `*uc ~T0 @X0 1 r1 ]
+[v _lcd `S1 ~T0 @X0 1 r2 ]
+[f ]
+"83
+[; ;ANY_LCD.c: 83:     static uint16_t buffer[4];
+[v F74 `us ~T0 @X0 -> 4 `i s buffer ]
+"84
+[; ;ANY_LCD.c: 84:     while(*str){
+[e $U 4  ]
+[e :U 5 ]
+{
+"85
+[; ;ANY_LCD.c: 85:         LCD_MakeData(buffer,*str);
+[e ( _LCD_MakeData (2 , &U F74 -> *U _str `us ]
+"86
+[; ;ANY_LCD.c: 86:         LCD_SendBytes(buffer,lcd,4);
+[e ( _LCD_SendBytes (3 , , &U F74 _lcd -> -> 4 `i `uc ]
+"87
+[; ;ANY_LCD.c: 87:         str++;
+[e ++ _str * -> -> 1 `i `x -> -> # *U _str `i `x ]
+"88
+[; ;ANY_LCD.c: 88:     }
+}
+[e :U 4 ]
+"84
+[; ;ANY_LCD.c: 84:     while(*str){
+[e $ != -> *U _str `i -> 0 `i 5  ]
+[e :U 6 ]
+"89
+[; ;ANY_LCD.c: 89: }
+[e :UE 3 ]
+}
+"95
+[; ;ANY_LCD.c: 95: void LCD_WriteData(uint16_t data,any_lcd_t lcd){
+[v _LCD_WriteData `(v ~T0 @X0 1 ef2`us`S1 ]
+{
+[e :U _LCD_WriteData ]
+[v _data `us ~T0 @X0 1 r1 ]
+[v _lcd `S1 ~T0 @X0 1 r2 ]
+[f ]
+"96
+[; ;ANY_LCD.c: 96:     static uint16_t buffer[4];
+[v F78 `us ~T0 @X0 -> 4 `i s buffer ]
+"97
+[; ;ANY_LCD.c: 97:     LCD_MakeData(buffer,data);
+[e ( _LCD_MakeData (2 , &U F78 _data ]
+"98
+[; ;ANY_LCD.c: 98:     LCD_SendBytes(buffer,lcd,4);
+[e ( _LCD_SendBytes (3 , , &U F78 _lcd -> -> 4 `i `uc ]
+"99
+[; ;ANY_LCD.c: 99: }
+[e :UE 7 ]
+}
+"108
+[; ;ANY_LCD.c: 108: void LCD_Init(any_lcd_t lcd){
+[v _LCD_Init `(v ~T0 @X0 1 ef1`S1 ]
+{
+[e :U _LCD_Init ]
+[v _lcd `S1 ~T0 @X0 1 r1 ]
+[f ]
+"109
+[; ;ANY_LCD.c: 109:     LCD_WriteCMD(0x33,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 51 `i `us _lcd ]
+"110
+[; ;ANY_LCD.c: 110:     LCD_WriteCMD(0x32,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 50 `i `us _lcd ]
+"111
+[; ;ANY_LCD.c: 111:     LCD_WriteCMD(0x28,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 40 `i `us _lcd ]
+"112
+[; ;ANY_LCD.c: 112:     LCD_WriteCMD(0x0C,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 12 `i `us _lcd ]
+"114
+[; ;ANY_LCD.c: 114:     LCD_WriteCMD(0x01,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 1 `i `us _lcd ]
+"115
+[; ;ANY_LCD.c: 115:     lcd.delay_us(1E4);
+[e ( *U . _lcd 1 (1 -> .1e4 `ul ]
+"116
+[; ;ANY_LCD.c: 116: }
+[e :UE 8 ]
+}
+"122
+[; ;ANY_LCD.c: 122: void LCD_Reset(any_lcd_t lcd){
+[v _LCD_Reset `(v ~T0 @X0 1 ef1`S1 ]
+{
+[e :U _LCD_Reset ]
+[v _lcd `S1 ~T0 @X0 1 r1 ]
+[f ]
+"123
+[; ;ANY_LCD.c: 123:     LCD_WriteCMD(0x01,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 1 `i `us _lcd ]
+"124
+[; ;ANY_LCD.c: 124:     lcd.delay_us(5E3);
+[e ( *U . _lcd 1 (1 -> .5e3 `ul ]
+"125
+[; ;ANY_LCD.c: 125:     LCD_WriteCMD(0x02,lcd);
+[e ( _LCD_WriteCMD (2 , -> -> 2 `i `us _lcd ]
+"126
+[; ;ANY_LCD.c: 126:     lcd.delay_us(1E4);
+[e ( *U . _lcd 1 (1 -> .1e4 `ul ]
+"127
+[; ;ANY_LCD.c: 127: }
+[e :UE 9 ]
+}
+"138
+[; ;ANY_LCD.c: 138: static void LCD_MakeCMD(uint16_t *buffer,uint16_t data){
+[v _LCD_MakeCMD `(v ~T0 @X0 1 sf2`*us`us ]
+{
+[e :U _LCD_MakeCMD ]
+[v _buffer `*us ~T0 @X0 1 r1 ]
+[v _data `us ~T0 @X0 1 r2 ]
+[f ]
+"142
+[; ;ANY_LCD.c: 142:     buffer[0] = ((data & 0xF0) | 0x08 | 0x04) & (~0x01) & (~0x02);
+[e = *U + _buffer * -> -> 0 `i `x -> -> # *U _buffer `i `x -> & & | | & -> _data `ui -> -> 240 `i `ui -> -> 8 `i `ui -> -> 4 `i `ui -> ~ -> 1 `i `ui -> ~ -> 2 `i `ui `us ]
+"144
+[; ;ANY_LCD.c: 144:     buffer[1] = ((data & 0xF0) | 0x08) & (~0x01) & (~0x02) & (~0x04);
+[e = *U + _buffer * -> -> 1 `i `x -> -> # *U _buffer `i `x -> & & & | & -> _data `ui -> -> 240 `i `ui -> -> 8 `i `ui -> ~ -> 1 `i `ui -> ~ -> 2 `i `ui -> ~ -> 4 `i `ui `us ]
+"148
+[; ;ANY_LCD.c: 148:     buffer[2] = (((data<<4) & 0xF0) | 0x08 | 0x04) & (~0x01) & (~0x02);
+[e = *U + _buffer * -> -> 2 `i `x -> -> # *U _buffer `i `x -> & & | | & << -> _data `ui -> 4 `i -> -> 240 `i `ui -> -> 8 `i `ui -> -> 4 `i `ui -> ~ -> 1 `i `ui -> ~ -> 2 `i `ui `us ]
+"150
+[; ;ANY_LCD.c: 150:     buffer[3] = (((data<<4) & 0xF0) | 0x08) & (~0x01) & (~0x02) & (~0x04);
+[e = *U + _buffer * -> -> 3 `i `x -> -> # *U _buffer `i `x -> & & & | & << -> _data `ui -> 4 `i -> -> 240 `i `ui -> -> 8 `i `ui -> ~ -> 1 `i `ui -> ~ -> 2 `i `ui -> ~ -> 4 `i `ui `us ]
+"151
+[; ;ANY_LCD.c: 151: }
+[e :UE 10 ]
+}
+"162
+[; ;ANY_LCD.c: 162: static void LCD_MakeData(uint16_t *buffer,uint16_t data){
+[v _LCD_MakeData `(v ~T0 @X0 1 sf2`*us`us ]
+{
+[e :U _LCD_MakeData ]
+[v _buffer `*us ~T0 @X0 1 r1 ]
+[v _data `us ~T0 @X0 1 r2 ]
+[f ]
+"166
+[; ;ANY_LCD.c: 166:     buffer[0] = ((data & 0xF0) | 0x08 | 0x04 | 0x01) & (~0x02);
+[e = *U + _buffer * -> -> 0 `i `x -> -> # *U _buffer `i `x -> & | | | & -> _data `ui -> -> 240 `i `ui -> -> 8 `i `ui -> -> 4 `i `ui -> -> 1 `i `ui -> ~ -> 2 `i `ui `us ]
+"168
+[; ;ANY_LCD.c: 168:     buffer[1] = ((data & 0xF0) | 0x08 | 0x01) & (~0x02) & (~0x04);
+[e = *U + _buffer * -> -> 1 `i `x -> -> # *U _buffer `i `x -> & & | | & -> _data `ui -> -> 240 `i `ui -> -> 8 `i `ui -> -> 1 `i `ui -> ~ -> 2 `i `ui -> ~ -> 4 `i `ui `us ]
+"172
+[; ;ANY_LCD.c: 172:     buffer[2] = (((data<<4) & 0xF0) | 0x08 | 0x04 | 0x01) & (~0x02);
+[e = *U + _buffer * -> -> 2 `i `x -> -> # *U _buffer `i `x -> & | | | & << -> _data `ui -> 4 `i -> -> 240 `i `ui -> -> 8 `i `ui -> -> 4 `i `ui -> -> 1 `i `ui -> ~ -> 2 `i `ui `us ]
+"174
+[; ;ANY_LCD.c: 174:     buffer[3] = (((data<<4) & 0xF0) | 0x08 | 0x01) & (~0x02) & (~0x04);
+[e = *U + _buffer * -> -> 3 `i `x -> -> # *U _buffer `i `x -> & & | | & << -> _data `ui -> 4 `i -> -> 240 `i `ui -> -> 8 `i `ui -> -> 1 `i `ui -> ~ -> 2 `i `ui -> ~ -> 4 `i `ui `us ]
+"175
+[; ;ANY_LCD.c: 175: }
+[e :UE 11 ]
+}
+"185
+[; ;ANY_LCD.c: 185: static void LCD_SendBytes(uint16_t *buffer,any_lcd_t lcd,uint8_t len){
+[v _LCD_SendBytes `(v ~T0 @X0 1 sf3`*us`S1`uc ]
+{
+[e :U _LCD_SendBytes ]
+[v _buffer `*us ~T0 @X0 1 r1 ]
+[v _lcd `S1 ~T0 @X0 1 r2 ]
+[v _len `uc ~T0 @X0 1 r3 ]
+[f ]
+"187
+[; ;ANY_LCD.c: 187:  for(uint8_t i = 0;i < len;i++){
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $U 16  ]
+[e :U 13 ]
+{
+"188
+[; ;ANY_LCD.c: 188:   lcd.lcd_write(buffer[i]);
+[e ( *U . _lcd 0 (1 -> *U + _buffer * -> _i `ux -> -> # *U _buffer `ui `ux `uc ]
+"189
+[; ;ANY_LCD.c: 189:          lcd.delay_us(1E2);
+[e ( *U . _lcd 1 (1 -> .1e2 `ul ]
+"190
+[; ;ANY_LCD.c: 190:  }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 16 ]
+[e $ < -> _i `i -> _len `i 13  ]
+[e :U 14 ]
+}
+"192
+[; ;ANY_LCD.c: 192: }
+[e :UE 12 ]
+}
